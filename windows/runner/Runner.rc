@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
+            VALUE "CompanyName", "com.parcialf" "\0"
             VALUE "FileDescription", "agente_de_transito" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "agente_de_transito" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.parcialf. All rights reserved." "\0"
             VALUE "OriginalFilename", "agente_de_transito.exe" "\0"
             VALUE "ProductName", "agente_de_transito" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

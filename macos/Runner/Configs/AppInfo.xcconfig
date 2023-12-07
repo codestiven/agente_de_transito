@@ -8,7 +8,7 @@
 PRODUCT_NAME = agente_de_transito
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.agenteDeTransito
+PRODUCT_BUNDLE_IDENTIFIER = com.parcialf.agenteDeTransito
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 com.parcialf. All rights reserved.
