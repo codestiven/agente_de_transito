@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912223951748",
+    "project_id": "agente-de-transito",
+    "storage_bucket": "agente-de-transito.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912223951748:android:927ec58778ee9552f59bd1",
+        "android_client_info": {
+          "package_name": "com.parcialf.agente_de_transito"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0BsVHBwp5-SbyBCGNmuaYogSCokkdqKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
