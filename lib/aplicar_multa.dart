@@ -112,9 +112,11 @@ class _Aplicar_multaState extends State<Aplicar_multa> {
       });
 
       print('Multa agregada con éxito.');
+      showSuccessAlert();
     } catch (e) {
       print("Error al agregar multa a Firestore: $e");
       print("Error details: ${e.toString()}");
+      showErrorAlert();
     }
   }
 
@@ -204,7 +206,48 @@ class _Aplicar_multaState extends State<Aplicar_multa> {
       await addUserAndMediaToFirestore(imageUrl, audioUrl);
     } catch (e) {
       print("Error al subir medios y agregar usuario a Firestore: $e");
+      showErrorAlert();
     }
+  }
+
+  void showSuccessAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Éxito"),
+          content: Text("Multa subida con éxito."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Aceptar"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showErrorAlert() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Error"),
+          content: Text("Hubo un error al subir la multa."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("Aceptar"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
