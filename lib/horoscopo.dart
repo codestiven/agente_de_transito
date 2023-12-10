@@ -7,82 +7,83 @@ class HoroscopeScreen extends StatefulWidget {
 }
 
 class _HoroscopeScreenState extends State<HoroscopeScreen> {
- @override
- Widget build(BuildContext context) {
-   List<String> zodiacSigns = [
-     "Aries",
-     "Tauro",
-     "Géminis",
-     "Cáncer",
-     "Leo",
-     "Virgo",
-     "Libra",
-     "Escorpio",
-     "Sagitario",
-     "Capricornio",
-     "Acuario",
-     "Piscis"
-   ];
-   List<Widget> horoscopeMessages = [];
-   for (var zodiacSign in zodiacSigns) {
-     horoscopeMessages.add(
-       Padding(
-         padding: const EdgeInsets.all(8.0),
-         child: Card(
-           shape: RoundedRectangleBorder(
-             side: BorderSide(color: Colors.black),
-           ),
-           child: ListTile(
-             title: Text(
-               zodiacSign,
-               style: TextStyle(fontWeight: FontWeight.bold),
-             ),
-             subtitle: Text(
-               getHoroscopeMessage(zodiacSign, DateTime.now()),
-               maxLines: 1,
-               overflow: TextOverflow.ellipsis,
-             ),
-             onTap: () {
-               showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text(zodiacSign),
-                    content: Text(getHoroscopeMessage(zodiacSign, DateTime.now())),
-                    actions: [
-                      TextButton(
-                        child: Text('Cerrar'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
+  @override
+  Widget build(BuildContext context) {
+    List<String> zodiacSigns = [
+      "Aries",
+      "Tauro",
+      "Géminis",
+      "Cáncer",
+      "Leo",
+      "Virgo",
+      "Libra",
+      "Escorpio",
+      "Sagitario",
+      "Capricornio",
+      "Acuario",
+      "Piscis"
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Horóscopo de hoy', 
+        style: TextStyle(
+          fontWeight: FontWeight.bold,)
+          ), 
+        backgroundColor: Colors.green,
+      ),
+      body: ListView.builder(
+        itemCount: zodiacSigns.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),  
+                side: BorderSide(color: Colors.black),
+              ),
+              child: ListTile(
+                leading: Icon(Icons.star),  
+                title: Text(
+                  zodiacSigns[index],
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  getHoroscopeMessage(zodiacSigns[index], DateTime.now()),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text(zodiacSigns[index]),
+                        content: Text(getHoroscopeMessage(zodiacSigns[index], DateTime.now())),
+                        actions: [
+                          TextButton(
+                            child: Text('Cerrar'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
                 },
-               );
-             },
-           ),
-         ),
-       ),
-     );
-   }
-
-   return Scaffold(
-     appBar: AppBar(
-       title: Text('Horóscopo de hoy'), // Título
-     ),
-     body: ListView(
-       children: horoscopeMessages,
-     ),
-   );
- }
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 String getHoroscopeMessage(String zodiacSign, DateTime date) {
- // Define los mensajes de horóscopo para cada signo zodiacal y día de la semana
  Map<String, Map<int, List<String>>> horoscopeMessages = {
-   // Se deben agregar los mensajes para cada signo
-   // Aquí hay un ejemplo para Aries
+
 "Aries": {
     DateTime.monday: ["Aries, este lunes es un día para ser valiente y tomar la iniciativa.", "Aries, este lunes es un buen día para comenzar nuevos proyectos."],
     DateTime.tuesday: ["Aries, el martes es un día para ser audaz y enfrentar tus miedos.", "Aries, este martes es un buen día para desafiar tus límites."],
@@ -191,10 +192,8 @@ String getHoroscopeMessage(String zodiacSign, DateTime date) {
   DateTime.saturday: ["Piscis, este sábado es un día para ser soñador y fantasear sobre tus metas y deseos.", "Piscis, este sábado es un buen día para soñar despierto y visualizar lo que quieres en la vida."],
   DateTime.sunday: ["Piscis, este domingo es un día para relajarte y recargarte.", "Piscis, este domingo es un buen día para cuidarte a ti mismo y disfrutar de la tranquilidad."],
 },
-   // Continúa con los demás signos
  };
 
- // Selecciona un mensaje aleatorio de la lista
  List<String>? messages = horoscopeMessages[zodiacSign]?[date.weekday];
  if (messages != null && messages.isNotEmpty) {
    int randomIndex = Random().nextInt(messages.length);
