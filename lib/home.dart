@@ -1,8 +1,15 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
+import 'package:agente_de_transito/aplicar_multa.dart';
+import 'package:agente_de_transito/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -51,7 +58,7 @@ class _HomeState extends State<Home> {
       case 3:
         return ConsultaLicencia();
       case 4:
-        return AplicarMulta();
+        return Aplicar_multa();
       case 5:
         return MultasRegistradas();
       case 6:
