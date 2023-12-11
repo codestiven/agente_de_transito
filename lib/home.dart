@@ -4,6 +4,7 @@ import 'package:agente_de_transito/aplicar_multa.dart';
 import 'package:agente_de_transito/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:agente_de_transito/noticias.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
       case 6:
         return Mapamultas();
       case 7:
-        return Noticias();
+        return Noticia();
       case 8:
         return Estadoclima();
       case 9:
@@ -245,8 +246,6 @@ class Inicio extends StatelessWidget {
     );
   }
 }
-
-
 
 class ConsultaVehiculo extends StatelessWidget {
   @override
