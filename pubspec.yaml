@@ -45,7 +45,7 @@ dependencies:
   just_audio: ^0.9.0
   record: ^4.0.1
   path_provider: ^2.0.14
-  another_flushbar: ^1.12.30
+  geocoding: ^2.0.1
 
 dev_dependencies:
   flutter_test:
