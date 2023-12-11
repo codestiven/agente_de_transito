@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
+import 'package:agente_de_transito/MostrarMultas.dart';
 import 'package:agente_de_transito/aplicar_multa.dart';
 import 'package:agente_de_transito/consulta_placa.dart';
 import 'package:agente_de_transito/firebase_options.dart';
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
       case 4:
         return Aplicar_multa();
       case 5:
-        return MultasRegistradas();
+        return VerMultas();
       case 6:
         return Mapamultas();
       case 7:
@@ -154,7 +155,7 @@ class _HomeState extends State<Home> {
             ),
             ListTile(
               leading: Icon(Icons.download),
-              title: Text("hola"),
+              title: Text("Multas registradas"),
               onTap: () {
                 _onItemTapped(5);
                 Navigator.pop(context);
