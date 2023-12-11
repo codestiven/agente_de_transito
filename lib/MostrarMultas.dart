@@ -31,7 +31,7 @@ class VerMultas extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Murtas'),
+          title: Text('multas'),
           centerTitle: true,
           automaticallyImplyLeading: false),
       body: SingleChildScrollView(
