@@ -5,6 +5,7 @@ import 'package:agente_de_transito/aplicar_multa.dart';
 import 'package:agente_de_transito/consulta_placa.dart';
 import 'package:agente_de_transito/firebase_options.dart';
 import 'package:agente_de_transito/horoscopo.dart';
+import 'package:agente_de_transito/mapa.dart';
 import 'package:agente_de_transito/pages/tiposmultas.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +68,7 @@ class _HomeState extends State<Home> {
       case 5:
         return VerMultas();
       case 6:
-        return Mapamultas();
+        return Mapa();
       case 7:
         return Noticias();
       case 8:
