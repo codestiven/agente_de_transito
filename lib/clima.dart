@@ -21,6 +21,8 @@ class _EstadoclimaState extends State<Estadoclima> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Mostrar clima'),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

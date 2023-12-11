@@ -28,9 +28,12 @@ class _HoroscopeScreenState extends State<HoroscopeScreen> {
       appBar: AppBar(
         title: Text('Horóscopo de hoy', 
         style: TextStyle(
-          fontWeight: FontWeight.bold,)
+          color: Colors.white,
+          fontWeight: FontWeight.bold,),
           ), 
         backgroundColor: Colors.green,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: zodiacSigns.length,

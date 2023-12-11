@@ -2,10 +2,12 @@
 
 import 'package:agente_de_transito/MostrarMultas.dart';
 import 'package:agente_de_transito/aplicar_multa.dart';
+import 'package:agente_de_transito/consulta_licencia.dart';
 import 'package:agente_de_transito/consulta_placa.dart';
 import 'package:agente_de_transito/firebase_options.dart';
 import 'package:agente_de_transito/horoscopo.dart';
 import 'package:agente_de_transito/mapa.dart';
+import 'package:agente_de_transito/noticias.dart';
 import 'package:agente_de_transito/pages/tiposmultas.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,7 @@ class _HomeState extends State<Home> {
       case 2:
         return TiposMultas();
       case 3:
-        return ConsultaLicencia();
+        return DriverDetailsScreen();
       case 4:
         return Aplicar_multa();
       case 5:
@@ -70,7 +72,7 @@ class _HomeState extends State<Home> {
       case 6:
         return Mapa();
       case 7:
-        return Noticias();
+        return Noticia();
       case 8:
         return Estadoclima();
       case 9:

@@ -80,6 +80,8 @@ class _Aplicar_multaState extends State<Aplicar_multa> {
   final TextEditingController _latitudController = TextEditingController();
   final TextEditingController _longitudController = TextEditingController();
 
+   List<DropdownMenuItem<String>> _tiposMultasItems = [];
+
   File? _image;
   String? _audioPath;
   AudioRecorder _audioRecorder = AudioRecorder();
@@ -303,15 +305,43 @@ void _showRecordingSnackBar() {
   @override
   void initState() {
     super.initState();
+        _loadTiposMultas();
     _fechaActual = DateTime.now();
     _horaActual = TimeOfDay.now();
   }
 
+  Future<void> _loadTiposMultas() async {
+    try {
+      CollectionReference tiposMultas =
+          FirebaseFirestore.instance.collection('tiposmultas');
+
+      QuerySnapshot querySnapshot = await tiposMultas.get();
+
+      List<DropdownMenuItem<String>> items = [];
+
+      for (QueryDocumentSnapshot document in querySnapshot.docs) {
+        String tipoMulta = document['nombre'];
+        items.add(DropdownMenuItem(
+          child: Text(tipoMulta),
+          value: tipoMulta,
+        ));
+      }
+
+      setState(() {
+        _tiposMultasItems = items;
+      });
+    } catch (e) {
+      print("Error al cargar tipos de multas: $e");
+    }
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Ingrese datos de multa'),
+          automaticallyImplyLeading: false,
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -433,16 +463,7 @@ void _showRecordingSnackBar() {
                 SizedBox(height: 10),
                 DropdownButtonFormField<String>(
                   value: _motivoSeleccionado,
-                  items: [
-                    DropdownMenuItem(
-                      child: Text('Exceso de velocidad'),
-                      value: 'Exceso de velocidad',
-                    ),
-                    DropdownMenuItem(
-                      child: Text('Estacionamiento indebido'),
-                      value: 'Estacionamiento indebido',
-                    ),
-                  ],
+                  items: _tiposMultasItems,
                   onChanged: (value) {
                     setState(() {
                       _motivoSeleccionado = value;
@@ -471,7 +492,7 @@ void _showRecordingSnackBar() {
                     padding:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                     decoration: BoxDecoration(
-                      color: Colors.blue, // Color del fondo del botón
+                      color: Colors.blue,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
@@ -479,14 +500,13 @@ void _showRecordingSnackBar() {
                       children: [
                         Icon(
                           Icons.camera_alt,
-                          color: Colors.white, // Color del icono
+                          color: Colors.white,
                         ),
-                        SizedBox(
-                            width: 8.0), // Espacio entre el icono y el texto
+                        SizedBox(width: 8.0),
                         Text(
                           'Tomar Foto',
                           style: TextStyle(
-                            color: Colors.white, // Color del texto
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -495,7 +515,7 @@ void _showRecordingSnackBar() {
                   ),
                 ),
                 SizedBox(height: 20),
-             Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
@@ -504,14 +524,11 @@ void _showRecordingSnackBar() {
                           _recordAudio();
                           _showRecordingSnackBar();
                         },
-                        style: ElevatedButton.styleFrom(
-
-                            ),
+                        style: ElevatedButton.styleFrom(),
                         child: Text(
                           'Grabar Audio',
                           style: TextStyle(
-                            color: Theme.of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -525,14 +542,11 @@ void _showRecordingSnackBar() {
                           _stopRecording();
                           _hideRecordingSnackBar();
                         },
-                        style: ElevatedButton.styleFrom(
-
-                            ),
+                        style: ElevatedButton.styleFrom(),
                         child: Text(
                           'Detener Grabación',
                           style: TextStyle(
-                            color: Theme.of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ),
@@ -606,12 +620,10 @@ void _showRecordingSnackBar() {
                 InkWell(
                   onTap: _uploadMediaAndAddUserToFirestore,
                   child: Container(
-                    width: double
-                        .infinity, // Hace que el botón ocupe todo el ancho disponible
+                    width: double.infinity,
                     padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                      color: Theme.of(context)
-                          .primaryColor, // Color del fondo del botón
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Row(
@@ -619,14 +631,13 @@ void _showRecordingSnackBar() {
                       children: [
                         Icon(
                           Icons.cloud_upload,
-                          color: Colors.white, // Color del icono
+                          color: Colors.white,
                         ),
-                        SizedBox(
-                            width: 8.0), // Espacio entre el icono y el texto
+                        SizedBox(width: 8.0),
                         Text(
                           'Subir a Firestore',
                           style: TextStyle(
-                            color: Colors.white, // Color del texto
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -641,4 +652,5 @@ void _showRecordingSnackBar() {
       ),
     );
   }
+
 }

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart'; 
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -28,82 +30,121 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
   String _tipo = '';
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextField(
-            controller: _placaController,
-            decoration: InputDecoration(
-              labelText: 'Ingrese la placa del vehículo',
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.green, width: 2.0),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.green, width: 1.0),
-              ),
+@override
+Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              FontAwesomeIcons.car, // Cambia esto con el icono de auto que elijas
+              size: 64, // Tamaño del icono
+              color: Colors.green,
             ),
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () async {
-              String placa = _placaController.text.trim();
-              if (placa.isNotEmpty) {
-                await consultarVehiculo(placa);
-              } else {
-                mostrarMensajeError(
-                    'Por favor, ingrese la placa del vehículo.');
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              primary: const Color.fromARGB(255, 74, 161, 79),
-            ),
-            child: Text('Consultar'),
-          ),
-          SizedBox(height: 16),
-          Card(
-            elevation: 5,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            color: Colors.green[100],
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Text(
-                    'Marca: $_marca',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Color: $_color',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Tipo: $_tipo',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 0, 0, 0),
-                    ),
-                  ),
-                ],
+            SizedBox(height: 16),
+            TextField(
+              controller: _placaController,
+              style: TextStyle(fontSize: 18),
+              decoration: InputDecoration(
+                labelText: 'Ingrese la placa del vehículo',
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 2.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green, width: 1.0),
+                ),
               ),
             ),
-          ),
-        ],
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () async {
+                String placa = _placaController.text.trim();
+                if (placa.isNotEmpty) {
+                  await consultarVehiculo(placa);
+                } else {
+                  mostrarMensajeError(
+                      'Por favor, ingrese la placa del vehículo.');
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                primary: const Color.fromARGB(255, 74, 161, 79),
+                minimumSize: Size(double.infinity, 50),
+              ),
+              child: Text(
+                'Consultar',
+                style: TextStyle(fontSize: 20,
+                color: Colors.white),
+              ),
+            ),
+            SizedBox(height: 16),
+            Card(
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.green[100],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Icon(
+                          FontAwesomeIcons
+                              .car, // Cambia esto con el icono de auto que elijas
+                          size: 64, // Tamaño del icono
+                          color: Colors.green,
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          'Información del Vehículo',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24, // Tamaño del texto
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Marca: $_marca',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Color: $_color',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Tipo: $_tipo',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 0, 0, 0),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
 
   Future<void> consultarVehiculo(String placa) async {
     try {
@@ -122,7 +163,7 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
       } else {
         mostrarMensajeError(
             'No se encontraron detalles para la placa ingresada.');
-        limpiarDatosPantalla(); // Limpia los datos en caso de error
+        limpiarDatosPantalla(); 
       }
     } catch (e) {
       mostrarMensajeError('Error al consultar el vehículo: $e');
@@ -140,7 +181,7 @@ class _VehicleDetailsScreenState extends State<VehicleDetailsScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                limpiarDatosPantalla(); // Limpia los datos cuando se cierra el diálogo de error
+                limpiarDatosPantalla();
               },
               child: Text('OK'),
             ),

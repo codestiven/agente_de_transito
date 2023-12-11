@@ -28,6 +28,8 @@ class Mapa extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ubicacion de multas'),
+          automaticallyImplyLeading: false,
+          centerTitle: true,
       ),
       body: FutureBuilder<List<Marker>>(
         // Obtener datos de Firebase

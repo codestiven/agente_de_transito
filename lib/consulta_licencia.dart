@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Consulta de Conductor por Licencia'),
+          automaticallyImplyLeading: false,
         ),
         body: DriverDetailsScreen(),
       ),
@@ -35,7 +36,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
   String _fechaNacimiento = '';
   String _direccion = '';
   String _telefono = '';
-  String _fotoAssetPath = 'perfil.jpg';
+  String _fotoAssetPath = 'assets/perfil.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +193,7 @@ class _DriverDetailsScreenState extends State<DriverDetailsScreen> {
       _fechaNacimiento = '';
       _direccion = '';
       _telefono = '';
-      _fotoAssetPath = 'perfil.jpg';
+      _fotoAssetPath = 'assets/perfil.jpg';
     });
   }
 }
