@@ -154,7 +154,7 @@ class _HomeState extends State<Home> {
             ),
             ListTile(
               leading: Icon(Icons.download),
-              title: Text("Multas registradas"),
+              title: Text("hola"),
               onTap: () {
                 _onItemTapped(5);
                 Navigator.pop(context);
