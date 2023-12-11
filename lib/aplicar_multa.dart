@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:record/record.dart';
 import 'dart:typed_data';
 import 'package:path_provider/path_provider.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -230,6 +231,55 @@ class _Aplicar_multaState extends State<Aplicar_multa> {
     );
   }
 
+  late Flushbar
+      _flushbar;
+
+void _showRecordingSnackBar() {
+    _flushbar = Flushbar(
+      message: 'Grabando',
+      duration: Duration(days: 1),
+      icon: Icon(
+        Icons.mic,
+        size: 36, 
+        color: Colors.white,
+      ),
+      backgroundColor: Colors.blue, 
+ 
+      margin: EdgeInsets.all(0), // Sin márgenes
+      padding: EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 16), 
+      flushbarPosition:
+          FlushbarPosition.TOP, 
+      flushbarStyle: FlushbarStyle.FLOATING, 
+      forwardAnimationCurve:
+          Curves.easeInOutBack, 
+      reverseAnimationCurve:
+          Curves.easeInOutBack, 
+    )..show(context);
+  }
+
+
+  void _hideRecordingSnackBar() {
+    if (_flushbar != null) {
+      _flushbar.dismiss();
+    }
+  }
+
+  // void _showRecordingSnackBar() {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text('Grabando'),
+  //       duration: Duration(
+  //           days: 1), // Duración larga para que no desaparezca automáticamente
+  //     ),
+  //   );
+  // }
+
+  // void _hideRecordingSnackBar() {
+  //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+  // }
+
   void showErrorAlert() {
     showDialog(
       context: context,
@@ -261,99 +311,331 @@ class _Aplicar_multaState extends State<Aplicar_multa> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter + Firebase'),
+        title: Text('Ingrese datos de multa'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextField(
-                controller: _nameController,
-                decoration: InputDecoration(labelText: 'Nombre'),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(labelText: 'Correo electrónico'),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _ageController,
-                decoration: InputDecoration(labelText: 'Edad'),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _cedulaController,
-                decoration: InputDecoration(labelText: 'Cédula del infractor'),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _placaController,
-                decoration:
-                    InputDecoration(labelText: 'Placa del vehículo (opcional)'),
-              ),
-              SizedBox(height: 10),
-              DropdownButtonFormField<String>(
-                value: _motivoSeleccionado,
-                items: [
-                  DropdownMenuItem(
-                    child: Text('Exceso de velocidad'),
-                    value: 'Exceso de velocidad',
+      body: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          image: DecorationImage(
+            image: const AssetImage("assets/a.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Theme.of(context).primaryColor.withOpacity(0.2),
+              BlendMode.dstATop,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextField(
+                  controller: _nameController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: 'Nombre',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                  DropdownMenuItem(
-                    child: Text('Estacionamiento indebido'),
-                    value: 'Estacionamiento indebido',
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _emailController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: 'Correo electrónico',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                ],
-                onChanged: (value) {
-                  setState(() {
-                    _motivoSeleccionado = value;
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Motivo de la multa'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _takePicture,
-                child: Text('Tomar Foto'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _recordAudio,
-                child: Text('Grabar Audio'),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: _comentarioController,
-                maxLines: null,
-                decoration:
-                    InputDecoration(labelText: 'Comentario sobre la multa'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _stopRecording,
-                child: Text('Detener Grabación'),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: _latitudController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(labelText: 'Latitud'),
-              ),
-              SizedBox(height: 10),
-              TextField(
-                controller: _longitudController,
-                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                decoration: InputDecoration(labelText: 'Longitud'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _uploadMediaAndAddUserToFirestore,
-                child: Text('Subir a Firestore'),
-              ),
-            ],
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _ageController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: 'Edad',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _cedulaController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: 'Cédula del infractor',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _placaController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    labelText: 'Placa del vehículo (opcional)',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                DropdownButtonFormField<String>(
+                  value: _motivoSeleccionado,
+                  items: [
+                    DropdownMenuItem(
+                      child: Text('Exceso de velocidad'),
+                      value: 'Exceso de velocidad',
+                    ),
+                    DropdownMenuItem(
+                      child: Text('Estacionamiento indebido'),
+                      value: 'Estacionamiento indebido',
+                    ),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _motivoSeleccionado = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Motivo de la multa',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                InkWell(
+                  onTap: _takePicture,
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue, // Color del fondo del botón
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.camera_alt,
+                          color: Colors.white, // Color del icono
+                        ),
+                        SizedBox(
+                            width: 8.0), // Espacio entre el icono y el texto
+                        Text(
+                          'Tomar Foto',
+                          style: TextStyle(
+                            color: Colors.white, // Color del texto
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+             Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _recordAudio();
+                          _showRecordingSnackBar();
+                        },
+                        style: ElevatedButton.styleFrom(
+
+                            ),
+                        child: Text(
+                          'Grabar Audio',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _stopRecording();
+                          _hideRecordingSnackBar();
+                        },
+                        style: ElevatedButton.styleFrom(
+
+                            ),
+                        child: Text(
+                          'Detener Grabación',
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .primaryColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                TextField(
+                  controller: _comentarioController,
+                  style: TextStyle(color: Colors.black),
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    labelText: 'Comentario sobre la multa',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _latitudController,
+                  style: TextStyle(color: Colors.black),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: 'Latitud',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                TextField(
+                  controller: _longitudController,
+                  style: TextStyle(color: Colors.black),
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: 'Longitud',
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.all(16.0),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 0.0),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20),
+                InkWell(
+                  onTap: _uploadMediaAndAddUserToFirestore,
+                  child: Container(
+                    width: double
+                        .infinity, // Hace que el botón ocupe todo el ancho disponible
+                    padding: EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .primaryColor, // Color del fondo del botón
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.cloud_upload,
+                          color: Colors.white, // Color del icono
+                        ),
+                        SizedBox(
+                            width: 8.0), // Espacio entre el icono y el texto
+                        Text(
+                          'Subir a Firestore',
+                          style: TextStyle(
+                            color: Colors.white, // Color del texto
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

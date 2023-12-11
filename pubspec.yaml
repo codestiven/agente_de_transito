@@ -45,6 +45,7 @@ dependencies:
   just_audio: ^0.9.0
   record: ^4.0.1
   path_provider: ^2.0.14
+  another_flushbar: ^1.12.30
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +81,8 @@ flutter:
     - assets/jack.jpg
 
     - assets/
+
+    - assets/a.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

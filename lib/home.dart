@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
 import 'package:agente_de_transito/aplicar_multa.dart';
+import 'package:agente_de_transito/consulta_placa.dart';
 import 'package:agente_de_transito/firebase_options.dart';
+import 'package:agente_de_transito/horoscopo.dart';
+import 'package:agente_de_transito/pages/tiposmultas.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -52,9 +55,9 @@ class _HomeState extends State<Home> {
       case 0:
         return Inicio();
       case 1:
-        return ConsultaVehiculo();
+        return VehicleDetailsScreen();
       case 2:
-        return TarifarioMultas();
+        return TiposMultas();
       case 3:
         return ConsultaLicencia();
       case 4:
@@ -68,7 +71,7 @@ class _HomeState extends State<Home> {
       case 8:
         return Estadoclima();
       case 9:
-        return Horoscopo();
+        return HoroscopeScreen();
       default:
         return Inicio();
     }
@@ -273,16 +276,7 @@ class ConsultaLicencia extends StatelessWidget {
   }
 }
 
-class AplicarMulta extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Contenido de la página de contacto"),
-      ),
-    );
-  }
-}
+
 
 class MultasRegistradas extends StatelessWidget {
   @override
