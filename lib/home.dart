@@ -4,6 +4,7 @@ import 'package:agente_de_transito/aplicar_multa.dart';
 import 'package:agente_de_transito/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:agente_de_transito/clima.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -246,8 +247,6 @@ class Inicio extends StatelessWidget {
   }
 }
 
-
-
 class ConsultaVehiculo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -317,13 +316,13 @@ class Noticias extends StatelessWidget {
   }
 }
 
-class Estadoclima extends StatelessWidget {
+class Clima extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text("Contenido de la opción 8"),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Mostrar clima',
+      home: Estadoclima(),
     );
   }
 }
